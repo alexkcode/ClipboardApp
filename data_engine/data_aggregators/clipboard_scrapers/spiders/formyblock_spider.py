@@ -18,4 +18,9 @@ class ForMyBlockSpider(Spider, SpiderBase):
         yield self.get_request('events/', {})
 
     def parse(self, response):
-        
+        titles = self.extract('title', response.css, '.eventlist-title-link::text')
+        urls = self.extract('', response.css, '.eventlist-title-link::attr(href)')
+        dates = self.extract('date', response.css, '.event-date::attr(datetime)')
+        times_ranges = self.extract('time_ranges', response.css, '')
+
+        return self.create_events('Alliance for the Great Lakes', titles, urls, dates, time_ranges, addresses, descriptions)
