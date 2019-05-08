@@ -1,6 +1,6 @@
-from custom_spiders import ScraperSpider
+from base.custom_spiders import ScraperSpider
 
-from data_utils import DataUtils
+from util.data_utils import DataUtils
 
 class ForMyBlockSpider(ScraperSpider):
     name = 'formyblock'
