@@ -16,10 +16,7 @@ from scrapy.utils import project
 from config import config
 
 def run():
-    status, msg = config.connect_to_client()
-    if not status:
-       print(msg)
-       sys.exit(1)
+    config.connect_to_client()
 
     print('Running event processor...')
 
@@ -28,7 +25,7 @@ def run():
     settings = project.get_project_settings()
     spider_loader = spiderloader.SpiderLoader.from_settings(settings)
     spiders = spider_loader.list()
-    classes = [s for s in (spider_loader.load(name) for name in spiders) if s.enabled]
+    classes = [s for s in (spider_loader.load(name) for name in spiders if config.spider_name == None or name == config.spider_name) if s.enabled]
 
     crawlerProcess = CrawlerProcess(get_project_settings())
 

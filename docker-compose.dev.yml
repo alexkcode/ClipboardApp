@@ -14,6 +14,7 @@ services:
       - VERBOSE_OUTPUT=${VERBOSE_OUTPUT}
       - RUN_SCHEDULER=${RUN_SCHEDULER}
       - SCHEDULE_INTERVAL=5
+      - SPIDER_NAME=${SPIDER_NAME}
     volumes:
       - ./event_processor:/usr/src/app/event_processor
       - /usr/src/app/event_processor/node_modules/
@@ -32,7 +33,7 @@ services:
     environment:
       - SERVER_NAME=localhost
   ndscheduler:
-    command: ["./node_modules/nodemon/bin/nodemon.js", "-L", "-u", "simple_scheduler/scheduler.py"]
+    command: "./node_modules/nodemon/bin/nodemon.js -L -u simple_scheduler/scheduler.py"
     volumes:
       - ../ndscheduler:/usr/src/app/ndscheduler
       - ndscheduler_modules:/usr/src/app/ndscheduler/node_modules/
